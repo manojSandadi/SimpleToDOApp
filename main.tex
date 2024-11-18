@@ -1,0 +1,324 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float} % Required to control the positioning of figures
+\usepackage{listings} % For code formatting
+\usepackage{xcolor} % For coloring code blocks
+\usepackage{hyperref} % For clickable links
+% Define custom style for code
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{lightgray!20},
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    stringstyle=\color{red},
+    showstringspaces=false
+}
+
+\title{\Huge Web Technologies - Lab 3}
+\author{Manoj Sandadi}
+\date{November 17, 2024}
+\begin{document}
+\maketitle
+\newpage
+\section{Task-1}
+\subsection{Screenshots of App}
+
+Below are the screenshots of the application:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Picture1.png} % Adjust the width as needed
+        \caption{React Native App on Emulator}
+        \label{fig:emulator-screenshot}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Physical Device.jpg} % Adjust the width as needed
+        \caption{React Native App on a Physical Device}
+        \label{fig:device-screenshot}
+    \end{minipage}
+\end{figure}
+
+\vspace{0.2cm}
+
+The emulator is slower compared to the physical device. Running the app on a physical device is faster and more convenient.
+
+\subsection{Setting up the Emulator}
+
+The steps to set up an Android emulator and configure the React Native environment are as follows:
+
+\begin{enumerate}
+    \item Install Android Studio and add the Android SDK's \texttt{Android\_Home} to the system \texttt{PATH} environment variable.
+    \item Install Java, \texttt{npm}, and the React Native CLI globally on your system.
+    \item Set paths for Java and \texttt{npm} in the system environment variables to ensure they are accessible from any directory.
+    \item Run the following command to create a new React Native app named \texttt{app}:
+    \begin{lstlisting}
+npx react-native init app
+    \end{lstlisting}
+    \item Navigate to the app directory:
+    \begin{lstlisting}
+cd app
+    \end{lstlisting}
+    \item Start the Metro development server by running:
+    \begin{lstlisting}
+npx react-native start
+    \end{lstlisting}
+    \item Select the option \texttt{"a"} to run the Android emulator.
+\end{enumerate}
+
+\subsubsection{Error: Metro Bundler Failed to Start}
+
+The Metro bundler fails to start or crashes when running \texttt{npx react-native start}.
+
+\begin{enumerate}
+    \item Ensure no other instance of the Metro bundler is running. Close all existing terminals or processes using the following command:
+    \begin{lstlisting}
+killall -9 node
+    \end{lstlisting}
+    \item Clear the Metro bundler cache:
+    \begin{lstlisting}
+npx react-native start --reset-cache
+    \end{lstlisting}
+    \item Restart the Metro bundler and verify if it works correctly.
+\end{enumerate}
+
+\subsection{Running the App on a Physical Device Using Expo}
+
+To run the app on a physical device, install the Expo Go app on your mobile device. Start the development server and scan the QR code displayed in the terminal or Metro bundler dashboard. This allows you to run the app directly on the device for testing.
+
+\subsection{Comparison of Emulator vs. Physical Device}
+
+React Native development can be performed using either an emulator or a physical device. Below is a comparison of the two options:
+
+\begin{itemize}
+    \item \textbf{Emulator:}
+    \begin{itemize}
+        \item \textbf{Advantages:}
+        \begin{itemize}
+            \item Easily accessible and does not require additional hardware.
+            \item Supports testing on multiple virtual devices with different screen sizes and Android versions.
+            \item Built-in tools allow debugging directly in the development environment.
+        \end{itemize}
+        \item \textbf{Disadvantages:}
+        \begin{itemize}
+            \item Slower performance compared to physical devices, especially on machines with limited resources.
+            \item Limited to mouse and keyboard inputs, making it less ideal for testing touch gestures.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Physical Device:}
+    \begin{itemize}
+        \item \textbf{Advantages:}
+        \begin{itemize}
+            \item Provides accurate performance metrics and real-world user experience.
+            \item Allows testing of hardware features like GPS, camera, and accelerometer.
+            \item Faster and smoother compared to emulators for app interactions.
+        \end{itemize}
+        \item \textbf{Disadvantages:}
+        \begin{itemize}
+            \item Requires USB debugging setup and drivers for connectivity.
+            \item Limited to the specific hardware model and Android version of the physical device.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Troubleshooting a Common Error}
+
+\textbf{Error Encountered: Node.js Version 22 Compatibility}
+
+While attempting to initialize a new React Native app using the command:
+
+\begin{lstlisting}
+npx react-native init NamelessApp
+\end{lstlisting}
+
+The following issues and warnings were encountered:
+
+\begin{itemize}
+    \item Deprecated module warnings, such as:
+    \begin{lstlisting}
+        inflight@1.0.6: This module is not supported, and leaks memory.}
+        @babel/plugin-proposal-class-properties: This proposal has been merged to ECMAScript.
+        rimraf versions prior to v4 are no longer supported.}
+         Deprecation notice for the init command:
+        The init command is deprecated. Switch to npx @react-native-community/cli init
+        Fatal error:
+        Error: spawn npx ENOENT
+        Node.js v22.11.0
+    \end{lstlisting}
+    This error indicates a compatibility issue with Node.js version 22.
+\end{itemize}
+
+\textbf{Cause:} \\
+The error occurred due to the usage of an incompatible Node.js version (v22.11.0). React Native and its dependencies require a stable and supported version of Node.js .
+
+\textbf{Steps to Resolve:}
+
+\begin{enumerate}
+    \item \textbf{Check the Current Node.js Version:} \\
+          Verify the installed Node.js version using:
+          \begin{lstlisting}
+node -v
+          \end{lstlisting}
+          In this case, the version was \texttt{v22.11.0}.
+          
+    \item \textbf{Uninstall the Unsupported Node.js Version:} \\
+          Uninstall Node.js v22 using your system's package manager. For example, on a Unix-based system:
+          \begin{lstlisting}
+sudo apt remove nodejs
+          \end{lstlisting}
+          
+    \item \textbf{Install a Supported Node.js Version:} \\
+          Download and install a stable LTS version of Node.js (e.g., v18 or v20) from the official website (\texttt{https://nodejs.org/}) or using \texttt{nvm}:
+          \begin{lstlisting}
+nvm install --lts
+          \end{lstlisting}
+          
+    \item \textbf{Clear the Cache and Reinstall Dependencies:} \\
+          After updating Node.js, clear the npm cache and reinstall React Native CLI:
+          \begin{lstlisting}
+npm cache clean --force
+npm install -g react-native-cli
+          \end{lstlisting}
+          
+    \item \textbf{Reinitialize the React Native App:} \\
+          Use the updated initialization command as per the deprecation notice:
+          \begin{lstlisting}
+npx @react-native-community/cli init NamelessApp
+          \end{lstlisting}
+          
+    \item \textbf{Verify the Installation:} \\
+          Start the Metro bundler and run the app to ensure everything works correctly:
+          \begin{lstlisting}
+cd NamelessApp
+npx react-native start
+          \end{lstlisting}
+\end{enumerate}
+
+\section{Task-2}
+This section covers the additional features implemented in the To-Do List app.
+
+\subsection{ Mark Tasks as Complete }
+
+
+\textbf{Implementation:}
+\begin{enumerate}
+    \item Added a \texttt{Switch} component to toggle the completion status.
+    \item Updated the state using \texttt{setTasks()} to store the updated task status.
+    \item Styled completed tasks conditionally with strikethrough text:
+\end{enumerate}
+
+\textbf{Code:}
+\begin{lstlisting}
+const toggleComplete = (taskId) => {
+    setTasks((prevTasks) =>
+        prevTasks.map((item) =>
+            item.id === taskId ? { ...item, completed: !item.completed } : item
+        )
+    );
+};
+\end{lstlisting}
+\textbf{Screenshots:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{mark.png}
+    \caption{Marking a Task as Complete}
+    \label{fig:mark-complete}
+\end{figure}
+
+
+\subsection{ Persist Data Using AsyncStorage }
+\textbf{Implementation:}
+\begin{enumerate}
+    \item Used \texttt{AsyncStorage.getItem()} to retrieve tasks when the app loads.
+    \item Used \texttt{AsyncStorage.setItem()} to save tasks whenever the state updates.
+    \item Ensured the tasks state synchronizes with storage.
+\end{enumerate}
+
+\textbf{Code Snippet:}
+\begin{lstlisting}
+useEffect(() => {
+    const loadTasks = async () => {
+        const savedTasks = await AsyncStorage.getItem('tasks');
+        if (savedTasks) {
+            setTasks(JSON.parse(savedTasks));
+        }
+    };
+    loadTasks();
+}, []);
+
+useEffect(() => {
+    AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+}, [tasks]);
+\end{lstlisting}
+
+\textbf{Screenshots:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{persist_data.png}
+    \caption{Data Persistence with AsyncStorage}
+    \label{fig:persist-data}
+\end{figure}
+
+\subsection{Edit Tasks}
+
+
+\textbf{Implementation:}
+\begin{enumerate}
+    \item Used a \texttt{TextInput} to replace the task text when editing.
+    \item Managed the editing state with \texttt{editingTaskId}.
+    \item Updated the task content in the state array using \texttt{updateTask()}.
+\end{enumerate}
+
+\textbf{Code Snippet:}
+\begin{lstlisting}
+const updateTask = (taskId, newText) => {
+    setTasks((prevTasks) =>
+        prevTasks.map((item) =>
+            item.id === taskId ? { ...item, text: newText } : item
+        )
+    );
+    setEditingTaskId(null); // Exit editing mode
+    setEditingText(''); // Clear editing text
+};
+\end{lstlisting}
+
+\textbf{Screenshots:}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{edit_task.png}
+    \caption{Editing a Task}
+    \label{fig:edit-task}
+\end{figure}
+
+\subsection{Add Animations}
+\textbf{Implementation:}
+\begin{enumerate}
+    \item Added fade-in and scale-up animations for new tasks using \texttt{Animated.timing()}.
+    \item Added shrink-and-fade-out animations for deleted tasks.
+\end{enumerate}
+
+\textbf{Code Snippet:}
+\begin{lstlisting}
+const runAddAnimation = () => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+    }).start();
+};
+\end{lstlisting}
+\vspace{0.3cm}
+GitHub Repository:
+\begin{link}
+    \href{https://github.com/manojSandadi/SimpleToDOApp}{https://github.com/manojSandadi/SimpleToDOApp} \\ 
+\end{link}
+\vspace{0.3cm}
+AI Tools Used: I have used ChatGpt to debug the code errors and research about the advantages and disadvantages about the reactive native on emulator vs physical Device
+
+\end{document}
